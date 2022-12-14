@@ -8,30 +8,37 @@ import { TrashIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
 
 type Props = {
-  index: number;
-  changeInitiativeRoll: (index: number) => void;
-  deleteRow: (index: number) => void;
+  name: string;
+  roll: number;
+  isPlayer: boolean;
+  initiativeBonus: number;
+  updateCharacter: (
+    roll: number,
+    isPlayer: boolean,
+    name: string,
+    initiativeBonus: number
+  ) => void;
+  deleteRow: () => void;
   isPlayerTurn?: boolean;
 };
 
 function CharacterRow({
-  index,
+  name,
+  roll,
+  isPlayer,
+  initiativeBonus,
   isPlayerTurn,
-  changeInitiativeRoll,
+  updateCharacter,
   deleteRow,
 }: Props) {
-  const [characterName, setCharacterName] = useState<string>('');
-  const [isPlayer, setIsPlayer] = useState<boolean>(false);
-  const [initiativeRoll, setInitiativeRoll] = useState<number>(0);
-  const [bonus, setBonus] = useState<string>('+0');
   const [color, setColor] = useState<string>('bg-gray-400');
 
   useEffect(() => {
-    // TODO: On creation, focus the text field and randomize color
+    // TODO: On creation, randomize color
   }, []);
 
-  function rerollInitiative() {
-    // TODO: Reroll character initiative
+  function changeColor() {
+    // TODO: Change color with randomizer
   }
 
   return (
@@ -43,12 +50,25 @@ function CharacterRow({
         <div
           className={`flex flex-row items-center justify-center space-x-4 rounded-sm ${color} text-black px-5 py-2`}
         >
-          <span className="font-bold text-2xl">{initiativeRoll}</span>
-          <button>RR</button>
+          <span className="font-bold text-2xl">{roll}</span>
+          <button
+            onClick={() => {
+              updateCharacter(
+                Math.floor(Math.random() * 20) + initiativeBonus,
+                isPlayer,
+                name,
+                initiativeBonus
+              );
+            }}
+          >
+            RR
+          </button>
         </div>
         <button
           className={`flex flex-col items-center justify-center p-2 rounded-sm ${color} text-black`}
-          onClick={() => setIsPlayer(!isPlayer)}
+          onClick={() =>
+            updateCharacter(roll, !isPlayer, name, initiativeBonus)
+          }
         >
           {isPlayer ? (
             <UserSolidIcon className="h-7 w-7" />
@@ -60,9 +80,12 @@ function CharacterRow({
           {/* TODO: Based on text input, change colors so that it matches the class or enemy type (popular types only) */}
           <input
             type="text"
-            placeholder="Click to add character"
-            value={characterName}
-            onChange={(e) => setCharacterName(e.target.value)}
+            autoFocus
+            placeholder="Enter Name"
+            value={name}
+            onChange={(e) =>
+              updateCharacter(roll, isPlayer, e.target.value, initiativeBonus)
+            }
             className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-600 dark:bg-transparent"
           />
           <div className="flex flex-row space-x-1 items-center justify-center">
@@ -72,33 +95,34 @@ function CharacterRow({
             </div>
             <select
               className="font-bold text-xl bg-transparent outline-none text-black"
-              value={bonus}
-              onChange={(e) => setBonus(e.target.value)}
+              value={initiativeBonus}
+              onChange={(e) =>
+                updateCharacter(roll, isPlayer, name, Number(e.target.value))
+              }
             >
-              <option className="dark:text-white dark:bg-slate-600" value="-2">
+              <option className="dark:text-white dark:bg-slate-600" value={-2}>
                 -2
               </option>
-              <option className="dark:text-white dark:bg-slate-600" value="-1">
+              <option className="dark:text-white dark:bg-slate-600" value={-1}>
                 -1
               </option>
-              <option className="dark:text-white dark:bg-slate-600" value="+0">
+              <option className="dark:text-white dark:bg-slate-600" value={0}>
                 +0
               </option>
-              <option className="dark:text-white dark:bg-slate-600" value="+1">
+              <option className="dark:text-white dark:bg-slate-600" value={1}>
                 +1
               </option>
-              <option className="dark:text-white dark:bg-slate-600" value="+2">
+              <option className="dark:text-white dark:bg-slate-600" value={2}>
                 +2
               </option>
             </select>
           </div>
-          <button>
-            {/* TODO: Add color cycle */}
+          <button onClick={changeColor}>
             <SwatchIcon className="h-8 w-8 text-gray-600" />
           </button>
         </div>
         <button
-          onClick={() => deleteRow(index)}
+          onClick={() => deleteRow()}
           className={`${color} rounded-sm px-2`}
         >
           <TrashIcon className="h-8 w-8 text-gray-600" />

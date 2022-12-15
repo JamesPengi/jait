@@ -1,10 +1,11 @@
-import { UserIcon as UserOutlineIcon } from '@heroicons/react/24/outline';
 import {
-  SwatchIcon,
-  UserIcon as UserSolidIcon,
-} from '@heroicons/react/24/solid';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { TrashIcon } from '@heroicons/react/24/solid';
+  DiceIcon,
+  NPCShieldIcon,
+  PaintCanIcon,
+  PCShieldIcon,
+  PlayerTrackerIcon,
+  TrashIcon,
+} from '../assets/Icons';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -44,13 +45,25 @@ function CharacterRow({
   return (
     <div className="flex flex-row space-x-3">
       <div className="flex flex-row justify-center items-center w-7">
-        {isPlayerTurn && <ArrowRightIcon className="h-7 w-7 text-white" />}
+        {isPlayerTurn && <PlayerTrackerIcon className="h-7 w-7" />}
       </div>
       <div className="flex flex-row space-x-3">
         <div
-          className={`flex flex-row items-center justify-center space-x-4 rounded-sm ${color} text-black px-5 py-2`}
+          className={`flex flex-row space-x-2 rounded-sm ${color} text-black px-5 py-2`}
         >
-          <span className="font-bold text-2xl">{roll}</span>
+          <input
+            type="number"
+            value={roll}
+            onChange={(e) =>
+              updateCharacter(
+                Number(e.target.value),
+                isPlayer,
+                name,
+                initiativeBonus
+              )
+            }
+            className="bg-transparent font-bold text-2xl text-center w-12"
+          />
           <button
             onClick={() => {
               updateCharacter(
@@ -61,7 +74,7 @@ function CharacterRow({
               );
             }}
           >
-            RR
+            <DiceIcon className="h-9 w-9" />
           </button>
         </div>
         <button
@@ -71,9 +84,9 @@ function CharacterRow({
           }
         >
           {isPlayer ? (
-            <UserSolidIcon className="h-7 w-7" />
+            <PCShieldIcon className="h-7 w-7" />
           ) : (
-            <UserOutlineIcon className="h-7 w-7" />
+            <NPCShieldIcon className="h-7 w-7" />
           )}
         </button>
         <div className={`flex flex-row space-x-7 px-2 rounded-sm ${color}`}>
@@ -118,14 +131,14 @@ function CharacterRow({
             </select>
           </div>
           <button onClick={changeColor}>
-            <SwatchIcon className="h-8 w-8 text-gray-600" />
+            <PaintCanIcon className="h-8 w-8 fill-gray-600" />
           </button>
         </div>
         <button
           onClick={() => deleteRow()}
           className={`${color} rounded-sm px-2`}
         >
-          <TrashIcon className="h-8 w-8 text-gray-600" />
+          <TrashIcon className="h-8 w-8 fill-gray-600" />
         </button>
       </div>
     </div>

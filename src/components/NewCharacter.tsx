@@ -1,6 +1,9 @@
-import { UserIcon as UserOutlineIcon } from '@heroicons/react/24/outline';
-import { SwatchIcon } from '@heroicons/react/24/solid';
-import { TrashIcon } from '@heroicons/react/24/solid';
+import {
+  DiceIcon,
+  NPCShieldIcon,
+  PaintCanIcon,
+  TrashIcon,
+} from '../assets/Icons';
 
 type Props = {
   addCharacter: () => void;
@@ -14,13 +17,13 @@ function NewCharacter({ addCharacter }: Props) {
         <div
           className={`flex flex-row items-center justify-center space-x-4 rounded-sm bg-gray-400 text-black px-5 py-2`}
         >
-          <span className="font-bold text-2xl">-</span>
-          <span>RR</span>
+          <span className="font-bold text-center text-2xl w-10">-</span>
+          <DiceIcon className="h-9 w-9 fill-black" />
         </div>
         <span
           className={`flex flex-col items-center justify-center p-2 rounded-sm bg-gray-400 text-black`}
         >
-          <UserOutlineIcon className="h-7 w-7" />
+          <NPCShieldIcon className="h-7 w-7" />
         </span>
         <div className={`flex flex-row space-x-7 px-2 rounded-sm bg-gray-400`}>
           <input
@@ -47,13 +50,13 @@ function NewCharacter({ addCharacter }: Props) {
             </select>
           </div>
           <div className="flex flex-col items-center justify-center">
-            <SwatchIcon className="h-8 w-8 text-gray-600" />
+            <PaintCanIcon className="h-8 w-8 fill-gray-600" />
           </div>
         </div>
         <div
           className={`flex flex-col items-center justify-center bg-gray-400 rounded-sm px-2`}
         >
-          <TrashIcon className="h-8 w-8 text-gray-600" />
+          <TrashIcon className="h-8 w-8 fill-gray-600" />
         </div>
       </div>
     </div>

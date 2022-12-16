@@ -3,4 +3,5 @@ export type Character = {
   isPlayer: boolean;
   name: string;
   initiativeBonus: number;
+  isTurn: boolean;
 };

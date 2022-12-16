@@ -5,7 +5,7 @@ import {
   PCShieldIcon,
   PlayerTrackerIcon,
   TrashIcon,
-} from '../assets/Icons';
+} from '../utils/Icons';
 import { useEffect, useState } from 'react';
 
 type Props = {

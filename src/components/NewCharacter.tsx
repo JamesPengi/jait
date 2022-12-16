@@ -3,7 +3,7 @@ import {
   NPCShieldIcon,
   PaintCanIcon,
   TrashIcon,
-} from '../assets/Icons';
+} from '../utils/Icons';
 
 type Props = {
   addCharacter: () => void;

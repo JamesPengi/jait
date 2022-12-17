@@ -1,4 +1,4 @@
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
+import { ResetRoundIcon } from '../utils/Icons';
 
 type Props = {
   round: number;
@@ -13,7 +13,7 @@ function CurrentRound({ round, resetRound }: Props) {
         <span className="font-bold text-xl">{round}</span>
       </div>
       <button onClick={() => resetRound()}>
-        <ArrowUturnLeftIcon className="h-6 w-6" />
+        <ResetRoundIcon className="h-7 w-7 dark:fill-white" />
       </button>
     </div>
   );

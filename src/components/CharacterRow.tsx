@@ -6,7 +6,7 @@ import {
   PlayerTrackerIcon,
   TrashIcon,
 } from '../utils/Icons';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getRandomColor } from '../utils/Colors';
 
 type Props = {
@@ -14,11 +14,13 @@ type Props = {
   roll: number;
   isPlayer: boolean;
   initiativeBonus: number;
+  color: string;
   updateCharacter: (
     roll: number,
     isPlayer: boolean,
     name: string,
-    initiativeBonus: number
+    initiativeBonus: number,
+    color: string
   ) => void;
   deleteRow: () => void;
   isPlayerTurn?: boolean;
@@ -30,17 +32,28 @@ function CharacterRow({
   isPlayer,
   initiativeBonus,
   isPlayerTurn,
+  color,
   updateCharacter,
   deleteRow,
 }: Props) {
-  const [color, setColor] = useState<string>('bg-gray-400');
-
   useEffect(() => {
-    setColor(getRandomColor('gray'));
+    updateCharacter(
+      roll,
+      isPlayer,
+      name,
+      initiativeBonus,
+      getRandomColor(color)
+    );
   }, []);
 
   function changeColor() {
-    setColor(getRandomColor(color));
+    updateCharacter(
+      roll,
+      isPlayer,
+      name,
+      initiativeBonus,
+      getRandomColor(color)
+    );
   }
 
   return (
@@ -60,7 +73,8 @@ function CharacterRow({
                 Number(e.target.value),
                 isPlayer,
                 name,
-                initiativeBonus
+                initiativeBonus,
+                color
               )
             }
             className="bg-transparent font-bold text-2xl text-center w-12"
@@ -71,7 +85,8 @@ function CharacterRow({
                 Math.floor(Math.random() * 20) + initiativeBonus,
                 isPlayer,
                 name,
-                initiativeBonus
+                initiativeBonus,
+                color
               );
             }}
           >
@@ -81,7 +96,7 @@ function CharacterRow({
         <button
           className={`flex flex-col items-center justify-center p-2 rounded-sm ${color} text-black`}
           onClick={() =>
-            updateCharacter(roll, !isPlayer, name, initiativeBonus)
+            updateCharacter(roll, !isPlayer, name, initiativeBonus, color)
           }
         >
           {isPlayer ? (
@@ -98,7 +113,13 @@ function CharacterRow({
             placeholder="Enter Name"
             value={name}
             onChange={(e) =>
-              updateCharacter(roll, isPlayer, e.target.value, initiativeBonus)
+              updateCharacter(
+                roll,
+                isPlayer,
+                e.target.value,
+                initiativeBonus,
+                color
+              )
             }
             className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-800 dark:bg-transparent"
           />
@@ -111,7 +132,13 @@ function CharacterRow({
               className="font-bold text-xl bg-transparent outline-none text-black"
               value={initiativeBonus}
               onChange={(e) =>
-                updateCharacter(roll, isPlayer, name, Number(e.target.value))
+                updateCharacter(
+                  roll,
+                  isPlayer,
+                  name,
+                  Number(e.target.value),
+                  color
+                )
               }
             >
               <option className="dark:text-white dark:bg-slate-600" value={-2}>

@@ -9,7 +9,14 @@ function App() {
   function addCharacter() {
     setCharacters([
       ...characters,
-      { roll: 0, isPlayer: false, name: '', initiativeBonus: 0, isTurn: false },
+      {
+        roll: 0,
+        isPlayer: false,
+        name: '',
+        initiativeBonus: 0,
+        isTurn: false,
+        color: 'bg-gray-400',
+      },
     ]);
   }
   function updateCharacter(
@@ -17,7 +24,8 @@ function App() {
     roll: number,
     isPlayer: boolean,
     name: string,
-    initiativeBonus: number
+    initiativeBonus: number,
+    color: string
   ) {
     setCharacters([
       ...characters.slice(0, index),
@@ -27,6 +35,7 @@ function App() {
         name,
         initiativeBonus,
         isTurn: characters[index].isTurn,
+        color: color,
       },
       ...characters.slice(index + 1),
     ]);
@@ -46,20 +55,28 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center min-h-screen space-y-10 dark:bg-slate-700 dark:text-white">
-      <h1 className="text-2xl font-bold">Just Another Initiative Tracker</h1>
+      <h1 className="text-4xl font-bold">Just Another Initiative Tracker</h1>
       <CurrentRound round={currentRound} resetRound={resetTracker} />
       {characters.map(
-        ({ name, roll, isPlayer, initiativeBonus, isTurn }, index) => {
+        ({ name, roll, isPlayer, initiativeBonus, isTurn, color }, index) => {
           return (
             <CharacterRow
               key={`character-${index}`}
-              updateCharacter={(roll, isPlayer, name, initiativeBonus) =>
-                updateCharacter(index, roll, isPlayer, name, initiativeBonus)
+              updateCharacter={(roll, isPlayer, name, initiativeBonus, color) =>
+                updateCharacter(
+                  index,
+                  roll,
+                  isPlayer,
+                  name,
+                  initiativeBonus,
+                  color
+                )
               }
               name={name}
               roll={roll}
               isPlayer={isPlayer}
               initiativeBonus={initiativeBonus}
+              color={color}
               deleteRow={() => deleteCharacter(index)}
               isPlayerTurn={isTurn}
             />

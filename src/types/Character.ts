@@ -4,4 +4,5 @@ export type Character = {
   name: string;
   initiativeBonus: number;
   isTurn: boolean;
+  color: string;
 };

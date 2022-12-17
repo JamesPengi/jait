@@ -63,7 +63,7 @@ function CharacterRow({
       </div>
       <div className="flex flex-row space-x-3">
         <div
-          className={`flex flex-row space-x-2 rounded-sm ${color} text-black px-5 py-2`}
+          className={`flex flex-row space-x-2 rounded-sm ${color} text-black px-5 py-2 transition-colors`}
         >
           <input
             type="number"
@@ -94,7 +94,7 @@ function CharacterRow({
           </button>
         </div>
         <button
-          className={`flex flex-col items-center justify-center p-2 rounded-sm ${color} text-black`}
+          className={`flex flex-col items-center justify-center p-2 rounded-sm ${color} text-black transition-colors`}
           onClick={() =>
             updateCharacter(roll, !isPlayer, name, initiativeBonus, color)
           }
@@ -105,7 +105,9 @@ function CharacterRow({
             <NPCShieldIcon className="h-7 w-7" />
           )}
         </button>
-        <div className={`flex flex-row space-x-7 px-2 rounded-sm ${color}`}>
+        <div
+          className={`flex flex-row space-x-7 px-2 rounded-sm ${color} transition-colors`}
+        >
           {/* TODO: Based on text input, change colors so that it matches the class or enemy type (popular types only) */}
           <input
             type="text"
@@ -164,7 +166,7 @@ function CharacterRow({
         </div>
         <button
           onClick={() => deleteRow()}
-          className={`${color} rounded-sm px-2`}
+          className={`${color} rounded-sm px-2 transition-colors`}
         >
           <TrashIcon className="h-8 w-8 fill-gray-800" />
         </button>

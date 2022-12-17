@@ -1,10 +1,15 @@
 import { useState } from 'react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import CharacterRow from './components/CharacterRow';
 import CurrentRound from './components/CurrentRound';
 import NewCharacter from './components/NewCharacter';
 import { Character } from './types/Character';
 
 function App() {
+  const [parent] = useAutoAnimate({
+    duration: 175,
+  });
+
   const [characters, setCharacters] = useState<Character[]>([]);
   function addCharacter() {
     setCharacters([
@@ -57,32 +62,41 @@ function App() {
     <div className="flex flex-col justify-center items-center min-h-screen space-y-10 dark:bg-slate-700 dark:text-white">
       <h1 className="text-4xl font-bold">Just Another Initiative Tracker</h1>
       <CurrentRound round={currentRound} resetRound={resetTracker} />
-      {characters.map(
-        ({ name, roll, isPlayer, initiativeBonus, isTurn, color }, index) => {
-          return (
-            <CharacterRow
-              key={`character-${index}`}
-              updateCharacter={(roll, isPlayer, name, initiativeBonus, color) =>
-                updateCharacter(
-                  index,
+      {/* @ts-ignore-error */}
+      <div ref={parent} className="space-y-5">
+        {characters.map(
+          ({ name, roll, isPlayer, initiativeBonus, isTurn, color }, index) => {
+            return (
+              <CharacterRow
+                key={`character-${index}`}
+                updateCharacter={(
                   roll,
                   isPlayer,
                   name,
                   initiativeBonus,
                   color
-                )
-              }
-              name={name}
-              roll={roll}
-              isPlayer={isPlayer}
-              initiativeBonus={initiativeBonus}
-              color={color}
-              deleteRow={() => deleteCharacter(index)}
-              isPlayerTurn={isTurn}
-            />
-          );
-        }
-      )}
+                ) =>
+                  updateCharacter(
+                    index,
+                    roll,
+                    isPlayer,
+                    name,
+                    initiativeBonus,
+                    color
+                  )
+                }
+                name={name}
+                roll={roll}
+                isPlayer={isPlayer}
+                initiativeBonus={initiativeBonus}
+                color={color}
+                deleteRow={() => deleteCharacter(index)}
+                isPlayerTurn={isTurn}
+              />
+            );
+          }
+        )}
+      </div>
       <NewCharacter
         addCharacter={() => {
           addCharacter();

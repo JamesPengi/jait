@@ -7,6 +7,7 @@ import {
   TrashIcon,
 } from '../utils/Icons';
 import { useEffect, useState } from 'react';
+import { getRandomColor } from '../utils/Colors';
 
 type Props = {
   name: string;
@@ -35,11 +36,11 @@ function CharacterRow({
   const [color, setColor] = useState<string>('bg-gray-400');
 
   useEffect(() => {
-    // TODO: On creation, randomize color
+    setColor(getRandomColor('gray'));
   }, []);
 
   function changeColor() {
-    // TODO: Change color with randomizer
+    setColor(getRandomColor(color));
   }
 
   return (
@@ -99,10 +100,10 @@ function CharacterRow({
             onChange={(e) =>
               updateCharacter(roll, isPlayer, e.target.value, initiativeBonus)
             }
-            className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-600 dark:bg-transparent"
+            className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-800 dark:bg-transparent"
           />
           <div className="flex flex-row space-x-1 items-center justify-center">
-            <div className="flex flex-col text-right font-bold text-gray-600 tracking-tighter -space-y-1">
+            <div className="flex flex-col text-right font-bold text-gray-900 tracking-tighter -space-y-1">
               <span>Initiative</span>
               <span>Bonus</span>
             </div>
@@ -131,14 +132,14 @@ function CharacterRow({
             </select>
           </div>
           <button onClick={changeColor}>
-            <PaintCanIcon className="h-8 w-8 fill-gray-600" />
+            <PaintCanIcon className="h-8 w-8 fill-gray-800" />
           </button>
         </div>
         <button
           onClick={() => deleteRow()}
           className={`${color} rounded-sm px-2`}
         >
-          <TrashIcon className="h-8 w-8 fill-gray-600" />
+          <TrashIcon className="h-8 w-8 fill-gray-800" />
         </button>
       </div>
     </div>

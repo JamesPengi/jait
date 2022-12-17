@@ -46,7 +46,6 @@ function App() {
     ]);
   }
   function deleteCharacter(index: number) {
-    console.log(index);
     setCharacters((characters) => [
       ...characters.slice(0, index),
       ...characters.slice(index + 1),

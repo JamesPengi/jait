@@ -63,7 +63,7 @@ function CharacterRow({
       </div>
       <div className="flex flex-row space-x-3">
         <div
-          className={`flex flex-row space-x-2 rounded-sm ${color} text-black px-5 py-2 transition-colors`}
+          className={`flex flex-row space-x-2 rounded-sm ${color} text-black px-5 py-2`}
         >
           <input
             type="number"

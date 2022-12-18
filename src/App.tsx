@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import CharacterRow from './components/CharacterRow';
 import CurrentRound from './components/CurrentRound';
@@ -7,7 +7,7 @@ import { Character } from './types/Character';
 
 function App() {
   const [parent] = useAutoAnimate({
-    duration: 175,
+    duration: 115,
   });
 
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -46,7 +46,7 @@ function App() {
     ]);
   }
   function deleteCharacter(index: number) {
-    setCharacters((characters) => [
+    setCharacters([
       ...characters.slice(0, index),
       ...characters.slice(index + 1),
     ]);
@@ -57,8 +57,37 @@ function App() {
     setCurrentRound(1);
   }
 
+  const [autoSort, setAutoSort] = useState<boolean>(false);
+  function rollAllInitiatives() {
+    if (autoSort) {
+      setCharacters((characters) =>
+        characters
+          .map((character) => {
+            return {
+              ...character,
+              roll: Math.floor(Math.random() * 20) + character.initiativeBonus,
+            };
+          })
+          .sort((a, b) => b.roll - a.roll)
+      );
+    } else {
+      setCharacters((characters) =>
+        characters.map((character) => {
+          return {
+            ...character,
+            roll: Math.floor(Math.random() * 20) + character.initiativeBonus,
+          };
+        })
+      );
+    }
+  }
+
+  function sortCharacters() {
+    setCharacters([...characters.sort((a, b) => b.roll - a.roll)]);
+  }
+
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center dark:bg-slate-700 dark:text-white">
+    <div className="flex flex-col min-h-screen py-5 justify-center items-center dark:bg-slate-700 dark:text-white">
       <div className="flex flex-col space-y-7">
         <h1 className="text-4xl font-bold text-center pb-5">
           Just Another Initiative Tracker
@@ -107,6 +136,45 @@ function App() {
             addCharacter();
           }}
         />
+        <div className="pl-10 space-y-5">
+          <div className="flex flex-row space-x-5">
+            <button
+              className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
+              // TODO: Go to next player when clicked
+            >
+              Next
+            </button>
+            <button
+              className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
+              onClick={rollAllInitiatives}
+            >
+              Roll
+            </button>
+            <button
+              className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
+              onClick={sortCharacters}
+            >
+              Sort
+            </button>
+          </div>
+          <div className="space-y-2">
+            <div className="space-x-10">
+              <span className="font-bold">Auto Order Characters on Roll</span>
+              <input
+                type="checkbox"
+                checked={autoSort}
+                onChange={(e) => setAutoSort(e.target.checked)}
+              />
+            </div>
+            {/* TODO: Remove NPCs from the character array */}
+            <div className="space-x-3">
+              <span className="font-bold">
+                Clear non-PCs on Encounter Reset
+              </span>
+              <input type="checkbox" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

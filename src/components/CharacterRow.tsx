@@ -58,8 +58,10 @@ function CharacterRow({
 
   return (
     <div className="flex flex-row space-x-3">
-      <div className="flex flex-row justify-center items-center w-7">
-        {isPlayerTurn && <PlayerTrackerIcon className="h-7 w-7" />}
+      <div className="flex flex-row justify-center items-center w-9">
+        {isPlayerTurn && (
+          <PlayerTrackerIcon className="h-9 w-9 dark:fill-white" />
+        )}
       </div>
       <div className="flex flex-row space-x-3">
         <div
@@ -123,7 +125,7 @@ function CharacterRow({
                 color
               )
             }
-            className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-800 dark:bg-transparent"
+            className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-800 bg-transparent"
           />
           <div className="flex flex-row space-x-1 items-center justify-center">
             <div className="flex flex-col text-right font-bold text-gray-900 tracking-tighter -space-y-1">

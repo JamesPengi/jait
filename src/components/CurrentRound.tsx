@@ -8,11 +8,11 @@ type Props = {
 function CurrentRound({ round, resetRound }: Props) {
   return (
     <div className="flex flex-row justify-end items-end space-x-7">
-      <div className="flex flex-row space-x-3">
-        <span className="font-bold text-2xl">Current Round</span>
-        <span className="font-bold text-2xl">{round}</span>
+      <div className="flex flex-row items-center space-x-3">
+        <span className="font-bold text-2xl">Current Round:</span>
+        <span className="font-bold text-4xl">{round}</span>
       </div>
-      <button onClick={() => resetRound()} className="pr-2">
+      <button onClick={() => resetRound()} className="pr-2.5">
         <ResetRoundIcon className="h-8 w-8 dark:fill-white" />
       </button>
     </div>

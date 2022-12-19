@@ -169,10 +169,10 @@ function App() {
             addCharacter();
           }}
         />
-        <div className="pl-10 space-y-5">
+        <div className="pl-12 space-y-5">
           <div className="flex flex-row space-x-5">
             <button
-              className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
+              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
               onClick={() =>
                 didTrackerStart ? advanceTracker() : setDidTrackerStart(true)
               }
@@ -180,7 +180,7 @@ function App() {
               {didTrackerStart ? 'Next' : 'Start'}
             </button>
             <button
-              className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
+              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
               onClick={rollAllInitiatives}
             >
               Roll All

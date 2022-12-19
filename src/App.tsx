@@ -32,18 +32,20 @@ function App() {
     initiativeBonus: number,
     color: string
   ) {
-    setCharacters([
-      ...characters.slice(0, index),
-      {
-        roll,
-        isPlayer,
-        name,
-        initiativeBonus,
-        isTurn: characters[index].isTurn,
-        color: color,
-      },
-      ...characters.slice(index + 1),
-    ]);
+    setCharacters(
+      [
+        ...characters.slice(0, index),
+        {
+          roll,
+          isPlayer,
+          name,
+          initiativeBonus,
+          isTurn: characters[index].isTurn,
+          color: color,
+        },
+        ...characters.slice(index + 1),
+      ].sort((a, b) => b.roll - a.roll)
+    );
   }
   function deleteCharacter(index: number) {
     setCharacters([
@@ -52,38 +54,65 @@ function App() {
     ]);
   }
 
+  const [didTrackerStart, setDidTrackerStart] = useState<boolean>(false);
+  useEffect(() => {
+    if (didTrackerStart) {
+      setCharacters([
+        { ...characters[0], isTurn: true },
+        ...characters.slice(1, characters.length),
+      ]);
+      setCurrentPlayer(0);
+    } else {
+      setCharacters((characters) => {
+        return characters.map((character) => {
+          return {
+            ...character,
+            isTurn: false,
+          };
+        });
+      });
+    }
+  }, [didTrackerStart]);
+
   const [currentRound, setCurrentRound] = useState<number>(1);
+  const [currentPlayer, setCurrentPlayer] = useState<number>(0);
   function resetTracker() {
     setCurrentRound(1);
+    setDidTrackerStart(false);
   }
 
-  const [autoSort, setAutoSort] = useState<boolean>(false);
-  function rollAllInitiatives() {
-    if (autoSort) {
-      setCharacters((characters) =>
-        characters
-          .map((character) => {
-            return {
-              ...character,
-              roll: Math.floor(Math.random() * 20) + character.initiativeBonus,
-            };
-          })
-          .sort((a, b) => b.roll - a.roll)
-      );
+  function advanceTracker() {
+    if (currentPlayer + 1 === characters.length) {
+      setCurrentRound(currentRound + 1);
+      setCurrentPlayer(0);
     } else {
-      setCharacters((characters) =>
-        characters.map((character) => {
+      setCurrentPlayer(currentPlayer + 1);
+    }
+  }
+
+  useEffect(() => {
+    setCharacters((characters) => {
+      return characters.map((character, index) => {
+        if (index === currentPlayer) {
+          return { ...character, isTurn: true };
+        } else {
+          return { ...character, isTurn: false };
+        }
+      });
+    });
+  }, [currentPlayer]);
+
+  function rollAllInitiatives() {
+    setCharacters((characters) =>
+      characters
+        .map((character) => {
           return {
             ...character,
             roll: Math.floor(Math.random() * 20) + character.initiativeBonus,
           };
         })
-      );
-    }
-  }
-
-  function sortCharacters() {
-    setCharacters([...characters.sort((a, b) => b.roll - a.roll)]);
+        .sort((a, b) => b.roll - a.roll)
+    );
   }
 
   return (
@@ -140,32 +169,20 @@ function App() {
           <div className="flex flex-row space-x-5">
             <button
               className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
-              // TODO: Go to next player when clicked
+              onClick={() =>
+                didTrackerStart ? advanceTracker() : setDidTrackerStart(true)
+              }
             >
-              Next
+              {didTrackerStart ? 'Next' : 'Start'}
             </button>
             <button
               className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
               onClick={rollAllInitiatives}
             >
-              Roll
-            </button>
-            <button
-              className="px-4 py-2 rounded text-2xl dark:bg-white dark:text-black font-bold"
-              onClick={sortCharacters}
-            >
-              Sort
+              Roll All
             </button>
           </div>
           <div className="space-y-2">
-            <div className="space-x-10">
-              <span className="font-bold">Auto Order Characters on Roll</span>
-              <input
-                type="checkbox"
-                checked={autoSort}
-                onChange={(e) => setAutoSort(e.target.checked)}
-              />
-            </div>
             {/* TODO: Remove NPCs from the character array */}
             <div className="space-x-3">
               <span className="font-bold">

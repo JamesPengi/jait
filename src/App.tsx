@@ -6,9 +6,7 @@ import NewCharacter from './components/NewCharacter';
 import { Character } from './types/Character';
 
 function App() {
-  const [parent] = useAutoAnimate({
-    duration: 115,
-  });
+  const [parent] = useAutoAnimate({ duration: 115 });
 
   const [characters, setCharacters] = useState<Character[]>([]);
   function addCharacter() {
@@ -75,10 +73,15 @@ function App() {
   }, [didTrackerStart]);
 
   const [currentRound, setCurrentRound] = useState<number>(1);
-  const [currentPlayer, setCurrentPlayer] = useState<number>(0);
+  const [clearNPCs, setClearNPCs] = useState<boolean>(false);
   function resetTracker() {
     setCurrentRound(1);
     setDidTrackerStart(false);
+    if (clearNPCs) {
+      setCharacters((characters) => {
+        return characters.filter((character) => character.isPlayer);
+      });
+    }
   }
 
   function advanceTracker() {
@@ -90,6 +93,7 @@ function App() {
     }
   }
 
+  const [currentPlayer, setCurrentPlayer] = useState<number>(0);
   useEffect(() => {
     setCharacters((characters) => {
       return characters.map((character, index) => {
@@ -188,7 +192,11 @@ function App() {
               <span className="font-bold">
                 Clear non-PCs on Encounter Reset
               </span>
-              <input type="checkbox" />
+              <input
+                type="checkbox"
+                checked={clearNPCs}
+                onChange={(e) => setClearNPCs(e.target.checked)}
+              />
             </div>
           </div>
         </div>

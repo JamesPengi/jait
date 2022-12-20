@@ -34,20 +34,17 @@ function NewCharacter({ addCharacter }: Props) {
             onClick={() => addCharacter()}
             className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-600 bg-transparent"
           />
-          <div className="flex flex-row space-x-1 items-center justify-center">
+          <div className="flex flex-row space-x-2 items-center justify-center">
             <div className="flex flex-col text-right font-bold text-gray-600 tracking-tighter -space-y-1">
               <span>Initiative</span>
               <span>Bonus</span>
             </div>
-            <select
-              className="font-bold text-xl bg-transparent outline-none text-black"
+            <input
+              type="number"
               value={0}
               disabled
-            >
-              <option className="dark:text-white dark:bg-slate-600" value={0}>
-                +0
-              </option>
-            </select>
+              className="bg-transparent font-bold text-2xl text-center w-12 text-black"
+            />
           </div>
           <div className="flex flex-col items-center justify-center">
             <PaintCanIcon className="h-8 w-8 fill-gray-600" />

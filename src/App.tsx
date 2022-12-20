@@ -120,6 +120,7 @@ function App() {
   }
 
   return (
+    // TODO: Change background to player's color
     <div className="flex flex-col min-h-screen py-5 justify-center items-center dark:bg-slate-700 dark:text-white">
       <div className="flex flex-col space-y-7">
         <h1 className="text-4xl font-bold text-center pb-5">
@@ -164,6 +165,7 @@ function App() {
             }
           )}
         </div>
+        {/* TODO: Remove placeholder newcharacter and start with one element in the character array */}
         <NewCharacter
           addCharacter={() => {
             addCharacter();
@@ -173,21 +175,20 @@ function App() {
           <div className="flex flex-row space-x-5">
             <button
               className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
+              onClick={rollAllInitiatives}
+            >
+              Roll All
+            </button>
+            <button
+              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
               onClick={() =>
                 didTrackerStart ? advanceTracker() : setDidTrackerStart(true)
               }
             >
               {didTrackerStart ? 'Next' : 'Start'}
             </button>
-            <button
-              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
-              onClick={rollAllInitiatives}
-            >
-              Roll All
-            </button>
           </div>
           <div className="space-y-2">
-            {/* TODO: Remove NPCs from the character array */}
             <div className="space-x-3">
               <span className="font-bold">
                 Clear non-PCs on Encounter Reset

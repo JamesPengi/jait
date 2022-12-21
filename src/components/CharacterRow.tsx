@@ -15,6 +15,7 @@ type Props = {
   isPlayer: boolean;
   initiativeBonus: number;
   color: string;
+  addCharacter: () => void;
   updateCharacter: (
     roll: number,
     isPlayer: boolean,
@@ -33,6 +34,7 @@ function CharacterRow({
   initiativeBonus,
   isPlayerTurn,
   color,
+  addCharacter,
   updateCharacter,
   deleteRow,
 }: Props) {
@@ -102,10 +104,10 @@ function CharacterRow({
           }
         >
           {isPlayer ? (
-            <PCShieldIcon className="h-7 w-7" />
+            <PCShieldIcon className="h-7 w-7 fill-black" />
           ) : (
             // TODO: Make NPC shield more gray and translucent
-            <NPCShieldIcon className="h-7 w-7" />
+            <NPCShieldIcon className="h-7 w-7 fill-gray-700" />
           )}
         </button>
         <div
@@ -127,6 +129,11 @@ function CharacterRow({
                 color
               )
             }
+            onKeyDown={(e) => {
+              if (e.code === 'Enter') {
+                addCharacter();
+              }
+            }}
             className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-800 bg-transparent"
           />
           <div className="flex flex-row space-x-2 items-center justify-center">
@@ -146,7 +153,7 @@ function CharacterRow({
                   color
                 )
               }
-              className="bg-transparent font-bold text-2xl text-center w-12 text-black"
+              className="bg-transparent font-bold text-2xl text-center w-14 text-black"
             />
           </div>
           {/* TODO: Make color pallette when picking a color */}

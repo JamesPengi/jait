@@ -23,7 +23,7 @@ function NewCharacter({ addCharacter }: Props) {
         <span
           className={`flex flex-col items-center justify-center p-2 rounded-sm bg-gray-400 text-black`}
         >
-          <NPCShieldIcon className="h-7 w-7" />
+          <NPCShieldIcon className="h-7 w-7 fill-gray-700" />
         </span>
         <div className={`flex flex-row space-x-7 px-2 rounded-sm bg-gray-400`}>
           <input
@@ -43,7 +43,7 @@ function NewCharacter({ addCharacter }: Props) {
               type="number"
               value={0}
               disabled
-              className="bg-transparent font-bold text-2xl text-center w-12 text-black"
+              className="bg-transparent font-bold text-2xl text-center w-14 text-black"
             />
           </div>
           <div className="flex flex-col items-center justify-center">

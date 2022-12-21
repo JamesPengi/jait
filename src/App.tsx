@@ -137,6 +137,7 @@ function App() {
               return (
                 <CharacterRow
                   key={`character-${index}`}
+                  addCharacter={addCharacter}
                   updateCharacter={(
                     roll,
                     isPlayer,

@@ -167,6 +167,12 @@ function App() {
           <div className="flex flex-row space-x-5">
             <button
               className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
+              onClick={addCharacter}
+            >
+              Add
+            </button>
+            <button
+              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
               onClick={rollAllInitiatives}
             >
               Roll All

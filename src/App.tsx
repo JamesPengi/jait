@@ -158,6 +158,7 @@ function App() {
                   color={color}
                   deleteRow={() => deleteCharacter(index)}
                   isPlayerTurn={isTurn}
+                  isFirst={characters.length === 1 && index === 0}
                 />
               );
             }

@@ -15,5 +15,5 @@ export const DEFAULT_CHARACTER: Character = {
   name: '',
   initiativeBonus: 0,
   isTurn: false,
-  color: getRandomColor(),
+  color: 'bg-gray-600',
 };

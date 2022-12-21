@@ -25,6 +25,7 @@ type Props = {
   ) => void;
   deleteRow: () => void;
   isPlayerTurn?: boolean;
+  isFirst?: boolean;
 };
 
 function CharacterRow({
@@ -34,19 +35,24 @@ function CharacterRow({
   initiativeBonus,
   isPlayerTurn,
   color,
+  isFirst,
   addCharacter,
   updateCharacter,
   deleteRow,
 }: Props) {
   useEffect(() => {
-    updateCharacter(
-      roll,
-      isPlayer,
-      name,
-      initiativeBonus,
-      getRandomColor(color)
-    );
-  }, []);
+    if (isFirst) {
+      if (name === '') {
+        updateCharacter(roll, isPlayer, name, initiativeBonus, 'bg-gray-600');
+      } else if (color === 'bg-gray-600') {
+        changeColor();
+      }
+    } else {
+      if (color === 'bg-gray-600') {
+        changeColor();
+      }
+    }
+  }, [name]);
 
   function changeColor() {
     updateCharacter(
@@ -114,7 +120,6 @@ function CharacterRow({
           className={`flex flex-row space-x-7 px-2 rounded-sm ${color} transition-colors`}
         >
           {/* TODO: Based on text input, change colors so that it matches the class or enemy type (popular types only) */}
-          {/* TODO: When hitting enter, make a new character */}
           <input
             type="text"
             autoFocus
@@ -168,8 +173,10 @@ function CharacterRow({
         </div>
         {/* TODO: Confirm delete with the user. Change background to red and maybe pulsing? */}
         <button
-          onClick={() => deleteRow()}
-          className={`${color} rounded-sm px-2 transition-colors`}
+          onClick={() => !isFirst && deleteRow()}
+          className={`${color} rounded-sm px-2 transition-colors ${
+            isFirst && `hover:cursor-not-allowed`
+          }`}
         >
           <TrashIcon className="h-8 w-8 fill-gray-800" />
         </button>

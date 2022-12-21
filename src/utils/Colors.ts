@@ -18,7 +18,7 @@ const colors = [
   'bg-rose-600',
 ];
 
-function getRandomColor(previousColor: string): string {
+function getRandomColor(previousColor?: string): string {
   const previousColorIndex = colors.findIndex(
     (color) => color === previousColor
   );

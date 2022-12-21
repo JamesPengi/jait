@@ -153,6 +153,11 @@ function CharacterRow({
                   color
                 )
               }
+              onKeyDown={(e) => {
+                if (e.code === 'Enter') {
+                  addCharacter();
+                }
+              }}
               className="bg-transparent font-bold text-2xl text-center w-14 text-black"
             />
           </div>

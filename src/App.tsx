@@ -2,25 +2,16 @@ import { useEffect, useState } from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import CharacterRow from './components/CharacterRow';
 import CurrentRound from './components/CurrentRound';
-import NewCharacter from './components/NewCharacter';
-import { Character } from './types/Character';
+import { DEFAULT_CHARACTER, Character } from './types/Character';
 
 function App() {
   const [parent] = useAutoAnimate({ duration: 115 });
 
-  const [characters, setCharacters] = useState<Character[]>([]);
+  const [characters, setCharacters] = useState<Character[]>([
+    DEFAULT_CHARACTER,
+  ]);
   function addCharacter() {
-    setCharacters([
-      ...characters,
-      {
-        roll: 0,
-        isPlayer: false,
-        name: '',
-        initiativeBonus: 0,
-        isTurn: false,
-        color: 'bg-gray-400',
-      },
-    ]);
+    setCharacters([...characters, DEFAULT_CHARACTER]);
   }
   function updateCharacter(
     index: number,
@@ -46,10 +37,14 @@ function App() {
     );
   }
   function deleteCharacter(index: number) {
-    setCharacters([
-      ...characters.slice(0, index),
-      ...characters.slice(index + 1),
-    ]);
+    if (characters.length === 1) {
+      setCharacters([DEFAULT_CHARACTER]);
+    } else {
+      setCharacters([
+        ...characters.slice(0, index),
+        ...characters.slice(index + 1),
+      ]);
+    }
   }
 
   const [didTrackerStart, setDidTrackerStart] = useState<boolean>(false);
@@ -95,15 +90,17 @@ function App() {
 
   const [currentPlayer, setCurrentPlayer] = useState<number>(0);
   useEffect(() => {
-    setCharacters((characters) => {
-      return characters.map((character, index) => {
-        if (index === currentPlayer) {
-          return { ...character, isTurn: true };
-        } else {
-          return { ...character, isTurn: false };
-        }
+    if (didTrackerStart) {
+      setCharacters((characters) => {
+        return characters.map((character, index) => {
+          if (index === currentPlayer) {
+            return { ...character, isTurn: true };
+          } else {
+            return { ...character, isTurn: false };
+          }
+        });
       });
-    });
+    }
   }, [currentPlayer]);
 
   function rollAllInitiatives() {
@@ -166,12 +163,6 @@ function App() {
             }
           )}
         </div>
-        {/* TODO: Remove placeholder newcharacter and start with one element in the character array */}
-        <NewCharacter
-          addCharacter={() => {
-            addCharacter();
-          }}
-        />
         <div className="pl-12 space-y-5">
           <div className="flex flex-row space-x-5">
             <button

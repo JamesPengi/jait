@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-import CharacterRow from './components/CharacterRow';
-import CurrentRound from './components/CurrentRound';
-import { DEFAULT_CHARACTER, Character } from './types/Character';
+import { useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import CharacterRow from "./components/CharacterRow";
+import CurrentRound from "./components/CurrentRound";
+import { DEFAULT_CHARACTER, Character } from "./types/Character";
 
 function App() {
   const [parent] = useAutoAnimate({ duration: 115 });
@@ -112,17 +112,17 @@ function App() {
             roll: Math.floor(Math.random() * 20) + character.initiativeBonus,
           };
         })
-        .filter(({ name }) => name !== '')
+        .filter(({ name }) => name !== "")
         .sort((a, b) => b.roll - a.roll)
     );
   }
 
   return (
     // TODO: Change background to player's color
-    <div className="flex flex-col min-h-screen py-5 justify-center items-center dark:bg-slate-700 dark:text-white">
+    <div className="flex min-h-screen flex-col items-center justify-center py-5 dark:bg-slate-700 dark:text-white">
       {/* TODO: Add mobile support */}
-      <div className="flex flex-col space-y-7 min-w-[50rem]">
-        <h1 className="text-4xl font-bold text-center pb-5">
+      <div className="flex min-w-[50rem] flex-col space-y-7">
+        <h1 className="pb-5 text-center text-4xl font-bold">
           Just Another Initiative Tracker
         </h1>
         <CurrentRound round={currentRound} resetRound={resetTracker} />
@@ -166,27 +166,27 @@ function App() {
             }
           )}
         </div>
-        <div className="pl-12 space-y-5">
+        <div className="space-y-5 pl-12">
           <div className="flex flex-row space-x-5">
             <button
-              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
+              className="rounded bg-slate-800 px-4 py-2 text-2xl font-bold text-white dark:bg-white dark:text-black"
               onClick={addCharacter}
             >
               Add
             </button>
             <button
-              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
+              className="rounded bg-slate-800 px-4 py-2 text-2xl font-bold text-white dark:bg-white dark:text-black"
               onClick={rollAllInitiatives}
             >
               Roll All
             </button>
             <button
-              className="px-4 py-2 rounded text-2xl bg-slate-800 text-white dark:bg-white dark:text-black font-bold"
+              className="rounded bg-slate-800 px-4 py-2 text-2xl font-bold text-white dark:bg-white dark:text-black"
               onClick={() =>
                 didTrackerStart ? advanceTracker() : setDidTrackerStart(true)
               }
             >
-              {didTrackerStart ? 'Next' : 'Start'}
+              {didTrackerStart ? "Next" : "Start"}
             </button>
           </div>
           <div className="space-y-2">

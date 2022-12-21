@@ -1,5 +1,3 @@
-import { getRandomColor } from '../utils/Colors';
-
 export type Character = {
   roll: number;
   isPlayer: boolean;
@@ -12,8 +10,8 @@ export type Character = {
 export const DEFAULT_CHARACTER: Character = {
   roll: 0,
   isPlayer: false,
-  name: '',
+  name: "",
   initiativeBonus: 0,
   isTurn: false,
-  color: 'bg-gray-600',
+  color: "bg-gray-600",
 };

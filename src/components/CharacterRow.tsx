@@ -5,9 +5,9 @@ import {
   PCShieldIcon,
   PlayerTrackerIcon,
   TrashIcon,
-} from '../utils/Icons';
-import { useEffect } from 'react';
-import { getRandomColor } from '../utils/Colors';
+} from "../utils/Icons";
+import { useEffect } from "react";
+import { getRandomColor } from "../utils/Colors";
 
 type Props = {
   name: string;
@@ -42,13 +42,13 @@ function CharacterRow({
 }: Props) {
   useEffect(() => {
     if (isFirst) {
-      if (name === '') {
-        updateCharacter(roll, isPlayer, name, initiativeBonus, 'bg-gray-600');
-      } else if (color === 'bg-gray-600') {
+      if (name === "") {
+        updateCharacter(roll, isPlayer, name, initiativeBonus, "bg-gray-600");
+      } else if (color === "bg-gray-600") {
         changeColor();
       }
     } else {
-      if (color === 'bg-gray-600') {
+      if (color === "bg-gray-600") {
         changeColor();
       }
     }
@@ -66,14 +66,14 @@ function CharacterRow({
 
   return (
     <div className="flex flex-row space-x-3">
-      <div className="flex flex-row justify-center items-center w-9">
+      <div className="flex w-9 flex-row items-center justify-center">
         {isPlayerTurn && (
           <PlayerTrackerIcon className="h-9 w-9 dark:fill-white" />
         )}
       </div>
       <div className="flex flex-row space-x-3">
         <div
-          className={`flex flex-row space-x-2 rounded-sm ${color} text-black px-5 py-2`}
+          className={`flex flex-row space-x-2 rounded-sm ${color} px-5 py-2 text-black`}
         >
           <input
             type="number"
@@ -87,7 +87,7 @@ function CharacterRow({
                 color
               )
             }
-            className="bg-transparent font-bold text-2xl text-center w-12"
+            className="w-12 bg-transparent text-center text-2xl font-bold"
           />
           <button
             onClick={() => {
@@ -104,7 +104,7 @@ function CharacterRow({
           </button>
         </div>
         <button
-          className={`flex flex-col items-center justify-center p-2 rounded-sm ${color} text-black transition-colors`}
+          className={`flex flex-col items-center justify-center rounded-sm p-2 ${color} text-black transition-colors`}
           onClick={() =>
             updateCharacter(roll, !isPlayer, name, initiativeBonus, color)
           }
@@ -116,7 +116,7 @@ function CharacterRow({
           )}
         </button>
         <div
-          className={`flex flex-row space-x-7 px-2 rounded-sm ${color} transition-colors`}
+          className={`flex flex-row space-x-7 rounded-sm px-2 ${color} transition-colors`}
         >
           {/* TODO: Based on text input, change colors so that it matches the class or enemy type (popular types only) */}
           <input
@@ -134,14 +134,14 @@ function CharacterRow({
               )
             }
             onKeyDown={(e) => {
-              if (e.code === 'Enter') {
+              if (e.code === "Enter") {
                 addCharacter();
               }
             }}
-            className="ml-2 font-bold text-xl outline-none text-black placeholder:text-gray-800 bg-transparent"
+            className="ml-2 bg-transparent text-xl font-bold text-black outline-none placeholder:text-gray-800"
           />
-          <div className="flex flex-row space-x-2 items-center justify-center">
-            <div className="flex flex-col text-right font-bold text-gray-900 tracking-tighter -space-y-1">
+          <div className="flex flex-row items-center justify-center space-x-2">
+            <div className="flex flex-col -space-y-1 text-right font-bold tracking-tighter text-gray-900">
               <span>Initiative</span>
               <span>Bonus</span>
             </div>
@@ -158,11 +158,11 @@ function CharacterRow({
                 )
               }
               onKeyDown={(e) => {
-                if (e.code === 'Enter') {
+                if (e.code === "Enter") {
                   addCharacter();
                 }
               }}
-              className="bg-transparent font-bold text-2xl text-center w-14 text-black"
+              className="w-14 bg-transparent text-center text-2xl font-bold text-black"
             />
           </div>
           {/* TODO: Make color pallette when picking a color */}

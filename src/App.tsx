@@ -112,6 +112,7 @@ function App() {
             roll: Math.floor(Math.random() * 20) + character.initiativeBonus,
           };
         })
+        .filter(({ name }) => name !== '')
         .sort((a, b) => b.roll - a.roll)
     );
   }
@@ -119,7 +120,8 @@ function App() {
   return (
     // TODO: Change background to player's color
     <div className="flex flex-col min-h-screen py-5 justify-center items-center dark:bg-slate-700 dark:text-white">
-      <div className="flex flex-col space-y-7">
+      {/* TODO: Add mobile support */}
+      <div className="flex flex-col space-y-7 min-w-[50rem]">
         <h1 className="text-4xl font-bold text-center pb-5">
           Just Another Initiative Tracker
         </h1>

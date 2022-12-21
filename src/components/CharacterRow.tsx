@@ -112,7 +112,6 @@ function CharacterRow({
           {isPlayer ? (
             <PCShieldIcon className="h-7 w-7 fill-black" />
           ) : (
-            // TODO: Make NPC shield more gray and translucent
             <NPCShieldIcon className="h-7 w-7 fill-gray-700" />
           )}
         </button>
